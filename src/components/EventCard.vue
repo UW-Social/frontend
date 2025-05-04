@@ -12,12 +12,17 @@ function formatDate(date: Date): string {
   const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" };
   return date.toLocaleDateString(undefined, options);
 }
+
+const baseUrl = import.meta.env.BASE_URL;
+const imageUrl = (image: string) => {
+  return image.startsWith("http") ? image : `${baseUrl}${image}`;
+};
 </script>
 
 <template>
   <Card style="width: 20rem; overflow: hidden">
     <template #header>
-      <img alt="Event Image" :src="event.image || '/event.jpg'" class="event-img" />
+      <img alt="Event Image" :src="imageUrl(event.image || '/event.jpg')" class="event-img" />
     </template>
     <template #title>{{ event.title }}</template>
     <template #subtitle>
